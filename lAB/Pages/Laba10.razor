@@ -1,7 +1,5 @@
 ﻿@page "/Laba10"
 <div>
-    <button type="button" class="btn btn-primary" @onclick="clickButton">Primary</button>
-    <div>@countClick</div>
     <div>
 
         Фамилия (объект ТЕХТ).
@@ -26,7 +24,7 @@
         поля «Имя»
     </div>
     <div style="display:flex;width:100%;justify-content: space-evenly">
-        <div style="max-width:250px">
+        <div style="max-width:450px">
         <form>
             <div class="mb-3">
                 <label class="form-label">Имя</label>
@@ -46,17 +44,17 @@
             </div>
             <div class="mb-3">
                 <select class="form-select" aria-label="Default select example" @bind=country>
-                    <option selected value="0">Выберите страну</option>
-                        <option value="1">Россия</option>
-                        <option value="2">Америка</option>
-                        <option value="3">Испания</option>
-                        <option value="4">Англия</option>
-                        <option value="5">Франция</option>
-                        <option value="6">Германия</option>
-                        <option value="7">Бразилия</option>
-                        <option value="8">Аргентина</option>
-                        <option value="9">Канада</option>
-                        <option value="10">Япония</option>
+                    <option selected value="10">Выберите страну</option>
+                        <option value="10">Россия</option>
+                        <option value="1">Америка</option>
+                        <option value="2">Испания</option>
+                        <option value="3">Англия</option>
+                        <option value="4">Франция</option>
+                        <option value="5">Италия</option>
+                        <option value="6">Португалия</option>
+                        <option value="7">Голандия</option>
+                        <option value="8">Канада</option>
+                        <option value="9">Япония</option>
                 </select>
             </div>
             @if(country!=null){
@@ -104,27 +102,38 @@
     public string language = null;
     public string profession = null;
     public string password = null;
-    string[] cities = new string[] { };
+    string[] cities = new string[] {};
 
-  
-    public class allCities
+
+    public class AllCities
     {
-        public int id;
-        string[] citiesRussia = new string[] { "Москва","Питер","Ростов","Воронеж","Шахты","Омск",};
-        string[] citiesUSA = new string[] { " Калифорния","Техас","Флорида","Колорадо","Аризона","Северная Каролина" };
+        public int id { get; set; }
+        string[] citiesRussia = new string[] { "Москва","Питер","Ростов","Воронеж","Шахты","Омск"};
+        string[] citiesUSA = new string[] { " Калифорния","Техас","Флорида","Колорадо","Аризона" };
         string[] citiesSpain = new string[] { "Барселона","Барро","Багур","Бехар","Бенаавис"};
-        string[] citiesEngland = new string[] { };
-        string[] citiesFrench = new string[] { };
-        string[] citiesGermany = new string[] { };
-        string[] citiesBrazil = new string[] { };
-        string[] citiesArgentina = new string[] { };
-        string[] citiesCanada = new string[] { };
-        string[] citiesJapan = new string[] { };
+        string[] citiesEngland = new string[] { " Мальмсбери","Мальтон","Манчестер","Маргит","Маркет"};
+        string[] citiesFrench = new string[] { "Лилль","Куршевель","Монако","Париж","Монпелье"};
+        string[] citiesItali = new string[] { "Рим","Римини","Милан","Флоренция","Риччионе","Венеция"};
+        string[] citiesPortugal = new string[] { "Лиссабон","Фуншал","Албуфейра","Порту","Лагош","Виламора"};
+        string[] citiesNetherlands = new string[] { "Домбург", "Хорн", "Гронинген", "Харлинген", "Делфт", "Лейден"};
+        string[] citiesCanada = new string[] { "Торонто","Монреаль","Калгари","Оттава","Эдмонтон","Миссисауга"};
+        string[] citiesJapan = new string[] { "Осака","Нара","Коясан", "Хаконэ", "Хакуба","Наэба" };
 
-        public void getCities(int cityId)
+       
+    };
+    public void getCities(int cityId)
+    {
+        string[,] allCities = { { "Москва", "Питер", "Ростов", "Воронеж", "Шахты" }, { " Калифорния", "Техас", "Флорида", "Колорадо", "Аризона" },
+        { "Барселона", "Барро", "Багур", "Бехар", "Бенаавис" }, { " Мальмсбери","Мальтон","Манчестер","Маргит","Маркет"},
+        { "Лилль","Куршевель","Монако","Париж","Монпелье"},{ "Рим","Римини","Милан","Флоренция","Венеция"},{ "Лиссабон","Фуншал","Порту","Лагош","Виламора"},
+        { "Домбург", "Хорн", "Гронинген", "Харлинген", "Лейден"},{ "Торонто","Монреаль","Оттава","Эдмонтон","Миссисауга"},
+        { "Осака","Нара","Коясан", "Хаконэ", "Хакуба" }
+    };
+        for (int index = 0; index <= allCities.lenght)
         {
-
+            
         }
+    }
     }
 
     int countClick = 0;
