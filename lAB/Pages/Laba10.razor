@@ -1,0 +1,136 @@
+﻿@page "/Laba10"
+<div>
+    <button type="button" class="btn btn-primary" @onclick="clickButton">Primary</button>
+    <div>@countClick</div>
+    <div>
+
+        Фамилия (объект ТЕХТ).
+        Имя (объект ТЕХТ).
+        Отчество (объект ТЕХТ).
+        E-mail (объект TEXT).
+        Выбор страны (обязательно выпадающим SELECT, стран не менее 10-ти).
+        Выбор города (обязательно с помощью RADIO, переменные должны быть одинаковыми, не
+        менее 5-ти).
+        Выбор языка (обязательно с помощью СНЕСКВOX, переменные должны быть разными, не
+        менее 5-ти).
+        Выбор профессий (обязательно с помощью SELECT MULTIPLE, переменные должны быть
+        разными, не менее 10-ти).
+        Пароль.
+        Дополнительная информация (обязательно с помощью TEXTAREA).
+        В скрытом поле (HIDDEN), передайте переменную student значение текстового
+        (например, student=document.[имя формы].[имя поля].value).
+        Поле для выбора файла, содержащего лабораторную работу.
+        Кнопка для загрузки информации на сервер.
+        Кнопка - изображение.
+        Кнопка для очистки формы.
+        поля «Имя»
+    </div>
+    <div style="display:flex;width:100%;justify-content: space-evenly">
+        <div style="max-width:250px">
+        <form>
+            <div class="mb-3">
+                <label class="form-label">Имя</label>
+                <input class="form-control" @bind="firstName">
+            </div>
+            <div class="mb-3">
+                <label  class="form-label">Фамилия</label>
+                <input class="form-control" @bind="middleName">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Отчество</label>
+                <input class="form-control" @bind="lastName">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" @bind="email">
+            </div>
+            <div class="mb-3">
+                <select class="form-select" aria-label="Default select example" @bind=country>
+                    <option selected value="0">Выберите страну</option>
+                        <option value="1">Россия</option>
+                        <option value="2">Америка</option>
+                        <option value="3">Испания</option>
+                        <option value="4">Англия</option>
+                        <option value="5">Франция</option>
+                        <option value="6">Германия</option>
+                        <option value="7">Бразилия</option>
+                        <option value="8">Аргентина</option>
+                        <option value="9">Канада</option>
+                        <option value="10">Япония</option>
+                </select>
+            </div>
+            @if(country!=null){
+                    <div class="mb-3" style="display:flex; flex-wrap: wrap">
+                    @foreach (var city in cities)
+                    {
+                            <div class="form-check form-check-inline" style="width:80px">
+                                <input class="form-check-input" type="radio" value="option1" checked>
+                                <label class="form-check-label" for="exampleRadios1">@city
+                                </label>
+                            </div>
+                    }
+
+
+                </div>
+                }
+             <div class="mb-3">
+              
+            </div>
+            <div class="mb-3">
+            </div>
+      
+        </form>
+            <button class="btn btn-primary" >Submit</button>
+    </div>
+    <div style="display:flex;flex-direction:column" class="mb-3">
+        <div>Ваша анкета</div>
+        <div>@firstName</div>
+        <div>@middleName</div>
+        <div>@lastName</div>
+        <div>@email</div>
+        <div>@country</div>
+        <div></div>
+    </div>
+    </div>
+
+</div>
+@code {
+    public string firstName = null;
+    public string middleName = null;
+    public string lastName = null;
+    public string email = null;
+    public string country = null;
+    public string city = null;
+    public string language = null;
+    public string profession = null;
+    public string password = null;
+    string[] cities = new string[] { };
+
+  
+    public class allCities
+    {
+        public int id;
+        string[] citiesRussia = new string[] { "Москва","Питер","Ростов","Воронеж","Шахты","Омск",};
+        string[] citiesUSA = new string[] { " Калифорния","Техас","Флорида","Колорадо","Аризона","Северная Каролина" };
+        string[] citiesSpain = new string[] { "Барселона","Барро","Багур","Бехар","Бенаавис"};
+        string[] citiesEngland = new string[] { };
+        string[] citiesFrench = new string[] { };
+        string[] citiesGermany = new string[] { };
+        string[] citiesBrazil = new string[] { };
+        string[] citiesArgentina = new string[] { };
+        string[] citiesCanada = new string[] { };
+        string[] citiesJapan = new string[] { };
+
+        public void getCities(int cityId)
+        {
+
+        }
+    }
+
+    int countClick = 0;
+    void clickButton()
+    {
+        countClick ++ ;
+    }
+  
+}
