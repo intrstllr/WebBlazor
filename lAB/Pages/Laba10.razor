@@ -25,121 +25,128 @@
     </div>
     <div style="display:flex;width:100%;justify-content: space-evenly">
         <div style="max-width:450px">
-        <form>
-            <div class="mb-3">
-                <label class="form-label">Имя</label>
-                <input class="form-control" @bind="firstName">
-            </div>
-            <div class="mb-3">
-                <label  class="form-label">Фамилия</label>
-                <input class="form-control" @bind="middleName">
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Отчество</label>
-                <input class="form-control" @bind="lastName">
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" @bind="email">
-            </div>
-            <div class="mb-3">
-                <select class="form-select" aria-label="Default select example" @bind=country>
-                    <option selected value="10">Выберите страну</option>
-                        <option value="10">Россия</option>
-                        <option value="1">Америка</option>
-                        <option value="2">Испания</option>
-                        <option value="3">Англия</option>
-                        <option value="4">Франция</option>
-                        <option value="5">Италия</option>
-                        <option value="6">Португалия</option>
-                        <option value="7">Голандия</option>
-                        <option value="8">Канада</option>
-                        <option value="9">Япония</option>
-                </select>
-            </div>
-            @if(country!=null){
-                    <div class="mb-3" style="display:flex; flex-wrap: wrap">
-                    @foreach (var city in cities)
-                    {
-                            <div class="form-check form-check-inline" style="width:80px">
-                                <input class="form-check-input" type="radio" value="option1" checked>
-                                <label class="form-check-label" for="exampleRadios1">@city
-                                </label>
-                            </div>
-                    }
-
-
+            <form>
+                <div class="mb-3">
+                    <label class="form-label">Имя</label>
+                    <input class="form-control" @bind="firstName">
                 </div>
+                <div class="mb-3">
+                    <label class="form-label">Фамилия</label>
+                    <input class="form-control" @bind="middleName">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Отчество</label>
+                    <input class="form-control" @bind="lastName">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" @bind="email">
+                </div>
+                <div class="mb-3">
+                    <select class="form-select" aria-label="Default select example" @bind=country @onclick="@getCities">
+                        <option selected >Выберите страну</option>
+                        <option value="Россия">Россия</option>
+                        <option value="Америка">Америка</option>
+                        <option value="Испания">Испания</option>
+                        <option value="Англия">Англия</option>
+                        <option value="Франция">Франция</option>
+                        <option value="Италия">Италия</option>
+                        <option value="Португалия">Португалия</option>
+                        <option value="Голандия">Голандия</option>
+                        <option value="Канада">Канада</option>
+                        <option value="Япония">Япония</option>
+                    </select>
+                </div>
+                @if (country != "")
+                {
+                    <div class="mb-3" style="display:flex; flex-direction:column">
+                        @if (cities.Length != 0)
+                        {
+                            @foreach (var item in cities)
+                            {
+                                <div style="width:80px; display:flex; justify-content: space-between;">
+                                    <div>
+                                        <input type="radio" @bind-value="selectCity">
+                                    </div>
+                                    <div style="display:flex; width:100%;" class="ps-2">
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            @item
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        }
+                       
+                    </div>
                 }
-             <div class="mb-3">
-              
-            </div>
-            <div class="mb-3">
-            </div>
-      
-        </form>
-            <button class="btn btn-primary" >Submit</button>
-    </div>
-    <div style="display:flex;flex-direction:column" class="mb-3">
-        <div>Ваша анкета</div>
-        <div>@firstName</div>
-        <div>@middleName</div>
-        <div>@lastName</div>
-        <div>@email</div>
-        <div>@country</div>
-        <div></div>
-    </div>
+                <div class="mb-3">
+                </div>
+                <div class="mb-3">
+                </div>
+
+            </form>
+            <button class="btn btn-primary">Submit</button>
+        </div>
+        <div style="display:flex;flex-direction:column" class="mb-3">
+            <div>Ваша анкета</div>
+            <div>@firstName</div>
+            <div>@middleName</div>
+            <div>@lastName</div>
+            <div>@email</div>
+            <div>@country</div>
+            <div></div>
+        </div>
     </div>
 
 </div>
 @code {
-    public string firstName = null;
-    public string middleName = null;
-    public string lastName = null;
-    public string email = null;
-    public string country = null;
-    public string city = null;
-    public string language = null;
-    public string profession = null;
-    public string password = null;
-    string[] cities = new string[] {};
+    public string firstName = "";
+    public string middleName = "";
+    public string lastName = "";
+    public string email = "";
+    public string country = "Выберите страну";
+    public bool selectCity = false;
+    public string language = "";
+    public string profession = "";
+    public string password = "";
+    public string[] cities = new string[] { };
 
-
-    public class AllCities
+    static string[] citiesRussia = new string[] { "Москва", "Питер", "Ростов", "Воронеж", "Шахты", "Омск" };
+    static string[] citiesUSA = new string[] { " Калифорния", "Техас", "Флорида", "Колорадо", "Аризона" };
+    static string[] citiesSpain = new string[] { "Барселона", "Барро", "Багур", "Бехар", "Бенаавис" };
+    static string[] citiesEngland = new string[] { " Мальмсбери", "Мальтон", "Манчестер", "Маргит", "Маркет" };
+    static string[] citiesFrench = new string[] { "Лилль", "Куршевель", "Монако", "Париж", "Монпелье" };
+    static string[] citiesItali = new string[] { "Рим", "Римини", "Милан", "Флоренция", "Риччионе", "Венеция" };
+    static string[] citiesPortugal = new string[] { "Лиссабон", "Фуншал", "Албуфейра", "Порту", "Лагош", "Виламора" };
+    static string[] citiesNetherlands = new string[] { "Домбург", "Хорн", "Гронинген", "Харлинген", "Делфт", "Лейден" };
+    static string[] citiesCanada = new string[] { "Торонто", "Монреаль", "Калгари", "Оттава", "Эдмонтон", "Миссисауга" };
+    static string[] citiesJapan = new string[] { "Осака", "Нара", "Коясан", "Хаконэ", "Хакуба", "Наэба" };
+    Dictionary<string, string[]> citiesCountrys = new()
     {
-        public int id { get; set; }
-        string[] citiesRussia = new string[] { "Москва","Питер","Ростов","Воронеж","Шахты","Омск"};
-        string[] citiesUSA = new string[] { " Калифорния","Техас","Флорида","Колорадо","Аризона" };
-        string[] citiesSpain = new string[] { "Барселона","Барро","Багур","Бехар","Бенаавис"};
-        string[] citiesEngland = new string[] { " Мальмсбери","Мальтон","Манчестер","Маргит","Маркет"};
-        string[] citiesFrench = new string[] { "Лилль","Куршевель","Монако","Париж","Монпелье"};
-        string[] citiesItali = new string[] { "Рим","Римини","Милан","Флоренция","Риччионе","Венеция"};
-        string[] citiesPortugal = new string[] { "Лиссабон","Фуншал","Албуфейра","Порту","Лагош","Виламора"};
-        string[] citiesNetherlands = new string[] { "Домбург", "Хорн", "Гронинген", "Харлинген", "Делфт", "Лейден"};
-        string[] citiesCanada = new string[] { "Торонто","Монреаль","Калгари","Оттава","Эдмонтон","Миссисауга"};
-        string[] citiesJapan = new string[] { "Осака","Нара","Коясан", "Хаконэ", "Хакуба","Наэба" };
-
-       
+        {"Россия",citiesRussia},
+        {"Америка",citiesUSA},
+        {"Испания",citiesSpain},
+        {"Англия",citiesEngland},
+        {"Франция",citiesFrench},
+        {"Италия",citiesItali},
+        {"Португалия",citiesPortugal},
+        {"Голандия",citiesNetherlands},
+        {"Канада",citiesCanada},
+        {"Япония",citiesJapan},
     };
-    public void getCities(int cityId)
+    void getCities()
     {
-        string[,] allCities = { { "Москва", "Питер", "Ростов", "Воронеж", "Шахты" }, { " Калифорния", "Техас", "Флорида", "Колорадо", "Аризона" },
-        { "Барселона", "Барро", "Багур", "Бехар", "Бенаавис" }, { " Мальмсбери","Мальтон","Манчестер","Маргит","Маркет"},
-        { "Лилль","Куршевель","Монако","Париж","Монпелье"},{ "Рим","Римини","Милан","Флоренция","Венеция"},{ "Лиссабон","Фуншал","Порту","Лагош","Виламора"},
-        { "Домбург", "Хорн", "Гронинген", "Харлинген", "Лейден"},{ "Торонто","Монреаль","Оттава","Эдмонтон","Миссисауга"},
-        { "Осака","Нара","Коясан", "Хаконэ", "Хакуба" }
-    };
-        for (int index = 0; index <= allCities.lenght)
+        if (country != "")
         {
-            
-        }
-    }
-    }
+            cities = new string[] { };
+            foreach (var item in citiesCountrys)
+            {
 
-    int countClick = 0;
-    void clickButton()
-    {
-        countClick ++ ;
+                if (item.Key == country)
+                {
+                    cities = item.Value;
+                }
+            }
+        }                 
     }
-  
 }
