@@ -21,10 +21,9 @@
         Кнопка для загрузки информации на сервер.
         Кнопка - изображение.
         Кнопка для очистки формы.
-        поля «Имя»
     </div>
     <div style="display:flex;width:100%;justify-content: space-evenly">
-        <div style="max-width:450px">
+        <div style="width:600px">
             <form>
                 <div class="mb-3">
                     <label class="form-label">Имя</label>
@@ -44,7 +43,7 @@
                 </div>
                 <div class="mb-3">
                     <select class="form-select" aria-label="Default select example" @bind=country @onclick="@getCities">
-                        <option selected >Выберите страну</option>
+                        <option selected>Выберите страну</option>
                         <option value="Россия">Россия</option>
                         <option value="Америка">Америка</option>
                         <option value="Испания">Испания</option>
@@ -66,26 +65,71 @@
                             {
                                 <div style="width:80px; display:flex; justify-content: space-between;">
                                     <div>
-                                        <input type="radio" @bind-value="selectCity">
+                                        <input type="radio" name="group" value="item" @onclick="(() => city = item)">
+
                                     </div>
                                     <div style="display:flex; width:100%;" class="ps-2">
-                                        <label class="form-check-label" for="exampleRadios1">
+                                        <label class="form-label" for="exampleRadios1">
                                             @item
                                         </label>
                                     </div>
                                 </div>
                             }
                         }
-                       
+
+                    </div>
+                }
+                @if (country != "Выберите страну")
+                {
+                    <div class="mb-3">
+                        <div>
+                            <input type="checkbox" name="checkbox" @bind-value="isActive">
+                            <label> Русский</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="checkbox" @bind-value="isActive">
+                            <label> Английский</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="checkbox" @bind-value="isActive">
+                            <label> Испанский</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="checkbox" @bind-value="isActive">
+                            <label>Японский</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="checkbox" @bind-value="isActive">
+                            <label> Французкий</label>
+
+                        </div>
+
                     </div>
                 }
                 <div class="mb-3">
-                </div>
-                <div class="mb-3">
-                </div>
+                    <select class="form-select" id="multiple-checkboxes" 
+                        @bind="profession">
+                        <option selected>Выберите профессию</option>
+                        @foreach (var item in professionList)
+                        {
+                            <option value="@item">@item</option>
+                        }
 
+                    </select>
+                </div>
+                <div class="mb-3 d-flex flex-column">
+                    <label for="floatingTextarea"> Дополнительная информация</label>
+                    <textarea class="form-control" style="height: 100px" id="floatingTextarea" @bind="info"></textarea>
+                </div>
+                <div class="mb-3 d-flex flex-column">
+                    <label for="">Пароль</label>
+                    <input type="password" @bind="password"/>
+                </div>
             </form>
-            <button class="btn btn-primary">Submit</button>
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-primary">Отправить</button>
+                <button class="btn btn-danger" @onclick="clearForm">Очистить</button>
+            </div>
         </div>
         <div style="display:flex;flex-direction:column" class="mb-3">
             <div>Ваша анкета</div>
@@ -94,7 +138,9 @@
             <div>@lastName</div>
             <div>@email</div>
             <div>@country</div>
-            <div></div>
+            <div>@city</div>
+            <div>@profession</div>
+            <div>@password</div>
         </div>
     </div>
 
@@ -105,11 +151,14 @@
     public string lastName = "";
     public string email = "";
     public string country = "Выберите страну";
-    public bool selectCity = false;
+    public string city = "";
     public string language = "";
-    public string profession = "";
+    public string profession = "Выберите профессию";
+    public string info = "";
     public string password = "";
     public string[] cities = new string[] { };
+    public bool isActive = false;
+
 
     static string[] citiesRussia = new string[] { "Москва", "Питер", "Ростов", "Воронеж", "Шахты", "Омск" };
     static string[] citiesUSA = new string[] { " Калифорния", "Техас", "Флорида", "Колорадо", "Аризона" };
@@ -134,11 +183,24 @@
         {"Канада",citiesCanada},
         {"Япония",citiesJapan},
     };
+
+    List<string> professionList = new()
+    {
+        "Web-разработчик",
+        "BackEnd-разработчик",
+        "Менеджер проектов",
+        "Тестировщик",
+        "UX-UI-дизайнер",
+        "Бизнес-аналитик",
+    };
+
+
     void getCities()
     {
         if (country != "")
         {
             cities = new string[] { };
+            city = "";
             foreach (var item in citiesCountrys)
             {
 
@@ -147,6 +209,20 @@
                     cities = item.Value;
                 }
             }
-        }                 
+        }
+    }
+    void clearForm()
+    {
+        firstName = "";
+        middleName = "";
+        lastName = "";
+        email = "";
+        country = "Выберите страну";
+        cities = new string[] { };
+        city = "";
+        language = "";
+        profession = "Выберите профессию";
+        info = "";
+        password = "";
     }
 }
