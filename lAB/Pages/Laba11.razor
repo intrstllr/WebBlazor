@@ -1,5 +1,87 @@
-﻿<h3>Component</h3>
+﻿@page "/Laba11"
+<div>
+    <div>
 
+    </div>
+    <div style="display:flex;width:100%;justify-content: space-evenly">
+        <div style="width:600px">
+            <form>
+                <div class="mb-3">
+                    <label class="form-label">Браузер</label>
+                    <input class="form-control" @bind="browser">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Дата</label>
+                    <input class="form-control" @bind="date">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Время</label>
+                    <input class="form-control" @bind="time">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Имя</label>
+                    <input class="form-control" @bind="firstName">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Фамилия</label>
+                    <input class="form-control" @bind="middleName">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Отчество</label>
+                    <input class="form-control" @bind="lastName">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" @bind="email">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @code {
+    public string firstName = "";
+    public string middleName = "";
+    public string lastName = "";
+    public string email = "";
+    public string country = "Выберите страну";
+    public string browser = "";
+    public string date = "";
+    public string time = "";
+
+    static string[] citiesRussia = new string[] { "Москва", "Питер", "Ростов", "Воронеж", "Шахты", "Омск" };
+    static string[] citiesUSA = new string[] { " Калифорния", "Техас", "Флорида", "Колорадо", "Аризона" };
+    static string[] citiesSpain = new string[] { "Барселона", "Барро", "Багур", "Бехар", "Бенаавис" };
+    static string[] citiesEngland = new string[] { " Мальмсбери", "Мальтон", "Манчестер", "Маргит", "Маркет" };
+    static string[] citiesFrench = new string[] { "Лилль", "Куршевель", "Монако", "Париж", "Монпелье" };
+    static string[] citiesItali = new string[] { "Рим", "Римини", "Милан", "Флоренция", "Риччионе", "Венеция" };
+    static string[] citiesPortugal = new string[] { "Лиссабон", "Фуншал", "Албуфейра", "Порту", "Лагош", "Виламора" };
+    static string[] citiesNetherlands = new string[] { "Домбург", "Хорн", "Гронинген", "Харлинген", "Делфт", "Лейден" };
+    static string[] citiesCanada = new string[] { "Торонто", "Монреаль", "Калгари", "Оттава", "Эдмонтон", "Миссисауга" };
+    static string[] citiesJapan = new string[] { "Осака", "Нара", "Коясан", "Хаконэ", "Хакуба", "Наэба" };
+    Dictionary<string, string[]> citiesCountrys = new()
+    {
+        {"Россия",citiesRussia},
+        {"Америка",citiesUSA},
+        {"Испания",citiesSpain},
+        {"Англия",citiesEngland},
+        {"Франция",citiesFrench},
+        {"Италия",citiesItali},
+        {"Португалия",citiesPortugal},
+        {"Голандия",citiesNetherlands},
+        {"Канада",citiesCanada},
+        {"Япония",citiesJapan},
+    };
+
+    List<string> professionList = new()
+    {
+        "Web-разработчик",
+        "BackEnd-разработчик",
+        "Менеджер проектов",
+        "Тестировщик",
+        "UX-UI-дизайнер",
+        "Бизнес-аналитик",
+    };
+
 
 }
+

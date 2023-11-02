@@ -1,4 +1,5 @@
 ﻿@page "/Laba10"
+@inject ILocalStorageService _localstorage;
 <div>
     <div>
 
@@ -107,8 +108,8 @@
                     </div>
                 }
                 <div class="mb-3">
-                    <select class="form-select" id="multiple-checkboxes" 
-                        @bind="profession">
+                    <select class="form-select" id="multiple-checkboxes"
+                    @bind="profession">
                         <option selected>Выберите профессию</option>
                         @foreach (var item in professionList)
                         {
@@ -123,7 +124,7 @@
                 </div>
                 <div class="mb-3 d-flex flex-column">
                     <label for="">Пароль</label>
-                    <input type="password" @bind="password"/>
+                    <input type="password" @bind="password" />
                 </div>
             </form>
             <div class="d-flex justify-content-between">
@@ -131,19 +132,7 @@
                 <button class="btn btn-danger" @onclick="clearForm">Очистить</button>
             </div>
         </div>
-        <div style="display:flex;flex-direction:column" class="mb-3">
-            <div>Ваша анкета</div>
-            <div>@firstName</div>
-            <div>@middleName</div>
-            <div>@lastName</div>
-            <div>@email</div>
-            <div>@country</div>
-            <div>@city</div>
-            <div>@profession</div>
-            <div>@password</div>
-        </div>
     </div>
-
 </div>
 @code {
     public string firstName = "";
@@ -224,5 +213,30 @@
         profession = "Выберите профессию";
         info = "";
         password = "";
+    }
+    class PageData
+    {
+        public string firstName = "";
+        public string middleName = "";
+        public string lastName = "";
+        public string email = "";
+        public string country = "Выберите страну";
+        public string city = "";
+        public string language = "";
+        public string profession = "Выберите профессию";
+        public string info = "";
+        public string password = "";
+        public string[] cities = new string[] { };
+
+        public void updateData()
+        {
+
+        }
+    }
+    void saveData()
+    {
+
+            
+      
     }
 }
